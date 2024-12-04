@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -26,19 +25,15 @@ func HandleNaturalOne(
 		switch {
 		case naturalOne >= successThreshold:
 			if *criticalSuccesses == maxDiceValue {
-				println("entrou")
 				*criticalSuccesses--
 			} else {
-				println("entrou2")
 				*criticalSuccesses = max(0, *criticalSuccesses-1)
 			}
 			*successes++
 		case naturalOne >= failureThreshold:
-			println("entrou3")
 			*successes = max(0, *successes-1)
 			*failures++
 		default:
-			println("entrou4")
 			*failures = max(0, *failures-1)
 			*criticalFailures++
 		}
@@ -55,7 +50,6 @@ func HandleNaturalTwenty(
 			*failures = max(0, *failures-1)
 			// For nat20 it always has at least one failure
 			if *criticalFailures == maxDiceValue {
-				println("entrou5")
 				*criticalFailures--
 				*failures++
 			} else {
@@ -63,17 +57,14 @@ func HandleNaturalTwenty(
 			}
 		case naturalTwenty < successThreshold:
 			*successes = max(0, *successes-1)
-			println("entrou6")
 			*criticalSuccesses++
 		}
 	} else {
 		// Natural Twenty is a guaranteed success, so it's promoted to critical success.
 		// Impossible to have 20 critical successes
 		if *criticalSuccesses == maxDiceValue {
-			println("entrou7")
 			*criticalSuccesses--
 		} else {
-			println("entrou8")
 			*criticalSuccesses = min(19, *criticalSuccesses+1)
 		}
 	}
@@ -109,11 +100,9 @@ func DiceRollCalc(modifier, dc int) (criticalFailures, failures, successes, crit
 	naturalOne := minDiceValue + modifier
 	naturalTwenty := maxDiceValue + modifier
 	// Handle Natural One and Natural Twenty
-	fmt.Printf("naturalOne=%d \n", naturalOne)
 	HandleNaturalOne(naturalOne, criticalFailureThreshold, failureThreshold, successThreshold, maxDiceValue,
 		&criticalFailures, &failures, &successes, &criticalSuccesses)
 
-	fmt.Printf("naturalTwenty=%d \n", naturalTwenty)
 	HandleNaturalTwenty(naturalTwenty, successThreshold, failureThreshold, maxDiceValue,
 		&criticalFailures, &failures, &successes, &criticalSuccesses)
 

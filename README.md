@@ -1,4 +1,4 @@
-# HP WebApp Test
+# PathFinder 2E DiceRoll - AppServer
 
 This is a WebApp that checks odds for a D20 RPG Dice and returns those odds based on
 Pathfinder 2E rules that configures as Four Degrees of Succes:

@@ -34,3 +34,11 @@ Pathfinder 2E rules that configures as Four Degrees of Succes:
 
 6. On your browser, access:
   http://localhost:8080/api/pathfinder2e/v1/distribution?modifier=50&dc=1
+
+## Author
+![Profile](https://github.com/user-attachments/assets/d8231a57-a42b-4646-880e-9a4e4a03b5d8)
+
+Made By Felipe Zoltowski
+
+[![Linkedin Badge](https://img.shields.io/badge/-Linkedin-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/pauloterresleal/)](https://www.linkedin.com/in/felipe-zoltowski/)
+

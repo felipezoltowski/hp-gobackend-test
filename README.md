@@ -13,6 +13,8 @@ Pathfinder 2E rules that configures as Four Degrees of Succes:
 
 - GIN - A fast web framework for Go with good performance and support for middlewares.
 
+- AIR - Live-reloading utility for Go apps.
+
 ## Installation
 
 1. Install Go from:
@@ -26,13 +28,10 @@ Pathfinder 2E rules that configures as Four Degrees of Succes:
 2. Navigate into project directory:
   cd go-server
 
-3. Build the docker image
-  docker build -t go-webserver .
+3. Start the app by running:
+  docker compose up
 
-5. Run the docker image
-  docker run -p 8080:8080 go-webserver
-
-6. On your browser, access:
+4. On your browser, access:
   http://localhost:8080/api/pathfinder2e/v1/distribution?modifier=50&dc=1
 
 <h2 id="author">Author</h2>

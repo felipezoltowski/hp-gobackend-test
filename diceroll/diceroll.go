@@ -49,6 +49,11 @@ func HandleNaturalTwenty(
 	}
 }
 
+// calculate odds range
+func calculateRange(maxDiceValue, threshold, modifier, offset int) int {
+	return max(0, min(maxDiceValue, threshold-modifier+offset))
+}
+
 func DiceRollOdds(modifier, dc int) (criticalFailures, failures, successes, criticalSuccesses int) {
 
 	var minDiceValue int = 1
@@ -60,9 +65,9 @@ func DiceRollOdds(modifier, dc int) (criticalFailures, failures, successes, crit
 
 	// Count range of occurrences for each DiceValue;
 	// modifier -1 garantees that superior thresholds are exclusive when calculating fails and successes
-	criticalFailures = max(0, min(maxDiceValue, criticalFailureThreshold-modifier))
-	failures = max(0, min(maxDiceValue, failureThreshold-modifier-1)) - criticalFailures
-	successes = max(0, min(maxDiceValue, successThreshold-modifier-1)) - failures - criticalFailures
+	criticalFailures = calculateRange(maxDiceValue, criticalFailureThreshold, modifier, 0)
+	failures = calculateRange(maxDiceValue, failureThreshold, modifier, -1) - criticalFailures
+	successes = calculateRange(maxDiceValue, successThreshold, modifier, -1) - failures - criticalFailures
 	criticalSuccesses = max(0, min(20, maxDiceValue-(successThreshold-modifier)))
 
 	// Check that success and criticalSuccesses are 0 when impossible

@@ -22,6 +22,7 @@ func HandleNaturalOne(
 	}
 }
 
+// Handle the logic for Natural Twenty
 func HandleNaturalTwenty(
 	naturalTwenty, successThreshold, failureThreshold, maxDiceValue int,
 	criticalFailures, failures, successes, criticalSuccesses *int,
@@ -69,10 +70,6 @@ func DiceRollOdds(modifier, dc int) (criticalFailures, failures, successes, crit
 		//When highest value(20+modifier) < dc, we cant have success
 		successes = 0
 		criticalSuccesses = 0
-	}
-	// only critical failures are possible
-	if modifier+maxDiceValue < criticalFailureThreshold {
-		failures = 0
 	}
 
 	naturalOne := minDiceValue + modifier

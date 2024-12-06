@@ -1,5 +1,10 @@
 package diceroll
 
+const (
+	minDiceValue int = 1
+	maxDiceValue int = 20
+)
+
 // Handle the logic for Natural One
 func HandleNaturalOne(
 	naturalOne, criticalFailureThreshold, failureThreshold, successThreshold, maxDiceValue int,
@@ -55,9 +60,6 @@ func calculateRange(maxDiceValue, threshold, modifier, offset int) int {
 }
 
 func DiceRollOdds(modifier, dc int) (criticalFailures, failures, successes, criticalSuccesses int) {
-
-	var minDiceValue int = 1
-	var maxDiceValue int = 20
 
 	criticalFailureThreshold := dc - 10
 	failureThreshold := dc

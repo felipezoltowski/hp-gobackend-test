@@ -15,49 +15,51 @@ func calcOddsRange(maxDiceValue, threshold, modifier, offset int) int {
 
 func HandleNaturalOne(
 	naturalOne, criticalFailureThreshold, failureThreshold, successThreshold, maxDiceValue int,
-	criticalFailures, failures, successes, criticalSuccesses *int,
-) {
+	criticalFailures, failures, successes, criticalSuccesses int,
+) (int, int, int, int) {
 	if naturalOne > criticalFailureThreshold {
 		switch {
 		case naturalOne >= successThreshold:
-			if *criticalSuccesses == maxDiceValue {
-				*criticalSuccesses--
+			if criticalSuccesses == maxDiceValue {
+				criticalSuccesses--
 			}
-			*successes++
+			successes++
 		case naturalOne >= failureThreshold:
-			*successes = max(0, *successes-1)
-			*failures++
+			successes = max(0, successes-1)
+			failures++
 		default:
-			*failures = max(0, *failures-1)
-			*criticalFailures++
+			failures = max(0, failures-1)
+			criticalFailures++
 		}
 	}
+	return criticalFailures, failures, successes, criticalSuccesses
 }
 
 func HandleNaturalTwenty(
 	naturalTwenty, successThreshold, failureThreshold, maxDiceValue int,
-	criticalFailures, failures, successes, criticalSuccesses *int,
-) {
+	criticalFailures, failures, successes, criticalSuccesses int,
+) (int, int, int, int) {
 	if naturalTwenty < successThreshold {
 		switch {
 		case naturalTwenty < failureThreshold:
-			*failures = max(0, *failures-1)
+			failures = max(0, failures-1)
 			// For nat20 it always has at least one failure
-			if *criticalFailures == maxDiceValue {
-				*criticalFailures--
-				*failures++
+			if criticalFailures == maxDiceValue {
+				criticalFailures--
+				failures++
 			} else {
-				*successes++
+				successes++
 			}
 		case naturalTwenty < successThreshold:
-			*successes = max(0, *successes-1)
-			*criticalSuccesses++
+			successes = max(0, successes-1)
+			criticalSuccesses++
 		}
 	} else {
 		// Natural Twenty is a guaranteed success, so it's promoted to critical success.
 		// Impossible to have 20 critical successes
-		*criticalSuccesses = min(19, *criticalSuccesses+1)
+		criticalSuccesses = min(19, criticalSuccesses+1)
 	}
+	return criticalFailures, failures, successes, criticalSuccesses
 }
 
 func DiceRollOdds(modifier, dc int) (criticalFailures, failures, successes, criticalSuccesses int) {
@@ -82,11 +84,11 @@ func DiceRollOdds(modifier, dc int) (criticalFailures, failures, successes, crit
 	naturalOne := minDiceValue + modifier
 	naturalTwenty := maxDiceValue + modifier
 
-	HandleNaturalOne(naturalOne, criticalFailureThreshold, failureThreshold, successThreshold, maxDiceValue,
-		&criticalFailures, &failures, &successes, &criticalSuccesses)
+	criticalFailures, failures, successes, criticalSuccesses = HandleNaturalOne(naturalOne, criticalFailureThreshold, failureThreshold, successThreshold, maxDiceValue,
+		criticalFailures, failures, successes, criticalSuccesses)
 
-	HandleNaturalTwenty(naturalTwenty, successThreshold, failureThreshold, maxDiceValue,
-		&criticalFailures, &failures, &successes, &criticalSuccesses)
+	criticalFailures, failures, successes, criticalSuccesses = HandleNaturalTwenty(naturalTwenty, successThreshold, failureThreshold, maxDiceValue,
+		criticalFailures, failures, successes, criticalSuccesses)
 
 	return criticalFailures, failures, successes, criticalSuccesses
 }

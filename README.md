@@ -1,19 +1,19 @@
 # PathFinder 2E DiceRoll - AppServer
 
 This is a WebApp that checks odds for a D20 RPG Dice and returns those odds based on
-Pathfinder 2E rules that configures as Four Degrees of Succes:
+Pathfinder 2E rules that configures as Four Degrees of Success:
 
-<img src="image.png" alt="Pathfing deegres of success">
+<img src="image.png" alt="Pathfing degrees of success">
 
 ## Technologies
 
-- GO Language - Open-source Programming Language.
+- <a href="https://go.dev"> GO Language </a>- Open-source Programming Language.
 
-- Docker - Containerization platform that bundle applications in containers.
+- <a href="https://www.docker.com"> Docker </a>- Containerization platform that bundle applications in containers.
 
-- GIN - A fast web framework for Go with good performance and support for middlewares.
+- <a href="https://gin-gonic.com"> GIN </a>- A fast web framework for Go with good performance and support for middlewares.
 
-- AIR - Live-reloading utility for Go apps.
+- <a href="https://github.com/air-verse/air"> AIR </a>- Live-reloading utility for Go apps.
 
 ## Installation
 
